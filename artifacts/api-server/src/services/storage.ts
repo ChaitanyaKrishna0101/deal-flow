@@ -6,7 +6,10 @@ import path from "path";
 import { fileURLToPath } from "url";
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
-const DATA_DIR = path.resolve(__dirname, "../../data");
+// In dev (ts source): __dirname = src/services/ → go up 3 = project root/data
+// After build (dist/):  __dirname = dist/       → go up 2 = project root/data
+// We use a sibling `data/` folder next to `src/` and `dist/`
+const DATA_DIR = path.resolve(__dirname, __dirname.endsWith("services") ? "../../data" : "../data");
 const DATA_FILE = path.join(DATA_DIR, "applications.json");
 
 export interface StoredApplication {
