@@ -63,6 +63,18 @@ Founder fills a form  →  Backend scores the application  →  Investor reviews
 </table>
 
 ---
+<div align="center">
+
+<b>📋 Application Form — Fill, Submit & Instantly See Your Score</b>
+
+<br/>
+<sub>Founder fills the application form → submits → instantly sees deal score, improvements and full application details</sub>
+<br/><br/>
+
+<video src="https://github.com/user-attachments/assets/8cc300a7-c9f1-40c2-bb2b-2028f184b71e" controls width="75%"></video>
+
+</div>
+---
 
 ## How It Works — Step by Step
 
