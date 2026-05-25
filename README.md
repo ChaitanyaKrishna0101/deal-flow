@@ -54,7 +54,7 @@ Founder fills a form  →  Backend scores the application  →  Investor reviews
   </tr>
   <tr>
     <td align="center">
-      <img width="580" alt="Application Form" src="https://github.com/user-attachments/assets/e8fd13af-edb7-4b7c-b986-d0e16cc808b9" />
+      <img width="580" alt="Application Form" src="https://github.com/user-attachments/assets/516eadfd-3c7f-4093-9373-80b2bf22a838"/>
     </td>
     <td align="center">
       <img width="580" alt="Application Details and Score" src="https://github.com/user-attachments/assets/62585a11-9023-41fd-8d6c-cb0855292630" />
