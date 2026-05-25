@@ -1,22 +1,25 @@
 openapi: 3.1.0
 info:
-  # Do not change the title, if the title changes, the import paths will be broken
   title: Api
   version: 0.1.0
-  description: API specification
+  description: FSV Capital - Startup Funding Application API
 servers:
   - url: /api
     description: Base API path
 tags:
   - name: health
     description: Health operations
+  - name: applications
+    description: Startup funding applications
+  - name: dashboard
+    description: Investor dashboard aggregates
+
 paths:
   /healthz:
     get:
       operationId: healthCheck
       tags: [health]
       summary: Health check
-      description: Returns server health status
       responses:
         "200":
           description: Healthy
@@ -24,13 +27,525 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/HealthStatus"
+
+  /applications:
+    get:
+      operationId: listApplications
+      tags: [applications]
+      summary: Get all applications
+      parameters:
+        - name: sector
+          in: query
+          schema:
+            type: string
+        - name: stage
+          in: query
+          schema:
+            type: string
+        - name: status
+          in: query
+          schema:
+            type: string
+        - name: sortBy
+          in: query
+          schema:
+            type: string
+      responses:
+        "200":
+          description: List of applications
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/Application"
+
+    post:
+      operationId: submitApplication
+      tags: [applications]
+      summary: Submit a new funding application
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/ApplicationInput"
+      responses:
+        "201":
+          description: Application submitted
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ApplicationSubmitResult"
+        "400":
+          description: Validation error or screening failure
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+
+  /applications/{id}:
+    get:
+      operationId: getApplication
+      tags: [applications]
+      summary: Get single application by ID
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: Application detail
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Application"
+        "404":
+          description: Not found
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+
+    patch:
+      operationId: updateApplicationStatus
+      tags: [applications]
+      summary: Update application status
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/ApplicationStatusUpdate"
+      responses:
+        "200":
+          description: Updated
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Application"
+
+  /applications/{id}/analyze:
+    post:
+      operationId: analyzeApplication
+      tags: [applications]
+      summary: Get Gemini AI analysis for an application
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: AI analysis result
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/AiAnalysis"
+
+  /dashboard/stats:
+    get:
+      operationId: getDashboardStats
+      tags: [dashboard]
+      summary: Get dashboard summary statistics
+      responses:
+        "200":
+          description: Dashboard stats
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/DashboardStats"
+
+  /export/csv:
+    get:
+      operationId: exportCsv
+      tags: [applications]
+      summary: Export all applications as CSV
+      responses:
+        "200":
+          description: CSV file
+          content:
+            text/csv:
+              schema:
+                type: string
+
 components:
   schemas:
     HealthStatus:
       type: object
+      required: [status]
       properties:
         status:
           type: string
-      required:
-        - status
 
+    ErrorResponse:
+      type: object
+      required: [success, error]
+      properties:
+        success:
+          type: boolean
+        error:
+          type: string
+        reason:
+          type: ["string", "null"]
+
+    ScoreBreakdown:
+      type: object
+      properties:
+        marketSize:
+          type: number
+        revenueStage:
+          type: number
+        teamStrength:
+          type: number
+        traction:
+          type: number
+        innovation:
+          type: number
+
+    CoreTeamMember:
+      type: object
+      properties:
+        name:
+          type: string
+        role:
+          type: string
+        linkedin:
+          type: string
+
+    Application:
+      type: object
+      required: [id, applicationId, submittedAt, status, startupName, contactEmail]
+      properties:
+        id:
+          type: string
+        applicationId:
+          type: string
+        submittedAt:
+          type: string
+        status:
+          type: string
+        startupName:
+          type: string
+        websiteUrl:
+          type: ["string", "null"]
+        founderNames:
+          type: string
+        contactEmail:
+          type: string
+        contactNumber:
+          type: ["string", "null"]
+        linkedinFounder:
+          type: ["string", "null"]
+        linkedinCompany:
+          type: ["string", "null"]
+        headquarters:
+          type: ["string", "null"]
+        yearOfIncorporation:
+          type: ["number", "null"]
+        problemStatement:
+          type: ["string", "null"]
+        solutionOverview:
+          type: ["string", "null"]
+        sector:
+          type: string
+        businessModel:
+          type: ["string", "null"]
+        stage:
+          type: string
+        coreProduct:
+          type: ["string", "null"]
+        techStack:
+          type: array
+          items:
+            type: string
+        usp:
+          type: ["string", "null"]
+        hasPatents:
+          type: ["boolean", "null"]
+        patentDetails:
+          type: ["string", "null"]
+        demoLink:
+          type: ["string", "null"]
+        tam:
+          type: ["string", "null"]
+        sam:
+          type: ["string", "null"]
+        som:
+          type: ["string", "null"]
+        customerSegment:
+          type: ["string", "null"]
+        competitors:
+          type: ["string", "null"]
+        competitiveAdvantage:
+          type: ["string", "null"]
+        monthlyRevenue:
+          type: ["number", "null"]
+        annualRevenue:
+          type: ["number", "null"]
+        growthRate:
+          type: ["number", "null"]
+        customerCount:
+          type: ["number", "null"]
+        partnerships:
+          type: ["string", "null"]
+        achievements:
+          type: ["string", "null"]
+        fundingRaised:
+          type: ["number", "null"]
+        previousInvestors:
+          type: ["string", "null"]
+        burnRate:
+          type: ["number", "null"]
+        runway:
+          type: ["number", "null"]
+        projectionY1:
+          type: ["number", "null"]
+        projectionY2:
+          type: ["number", "null"]
+        projectionY3:
+          type: ["number", "null"]
+        amountRaising:
+          type: ["number", "null"]
+        currency:
+          type: ["string", "null"]
+        fundingStage:
+          type: ["string", "null"]
+        equityOffered:
+          type: ["number", "null"]
+        useOfFunds:
+          type: array
+          items:
+            type: string
+        useOfFundsDetail:
+          type: ["string", "null"]
+        founderEducation:
+          type: ["string", "null"]
+        founderExperience:
+          type: ["string", "null"]
+        teamSize:
+          type: ["number", "null"]
+        coreTeam:
+          type: array
+          items:
+            $ref: "#/components/schemas/CoreTeamMember"
+        advisors:
+          type: ["string", "null"]
+        whyFSV:
+          type: ["string", "null"]
+        fsvValueAdd:
+          type: ["string", "null"]
+        openToMentorship:
+          type: ["boolean", "null"]
+        isRegistered:
+          type: ["boolean", "null"]
+        hasLegalIssues:
+          type: ["boolean", "null"]
+        legalExplanation:
+          type: ["string", "null"]
+        consentGiven:
+          type: ["boolean", "null"]
+        dealScore:
+          type: ["number", "null"]
+        scoreBreakdown:
+          $ref: "#/components/schemas/ScoreBreakdown"
+        aiAnalysis:
+          type: ["string", "null"]
+
+    ApplicationInput:
+      type: object
+      required: [startupName, founderNames, contactEmail, sector, stage]
+      properties:
+        startupName:
+          type: string
+        websiteUrl:
+          type: string
+        founderNames:
+          type: string
+        contactEmail:
+          type: string
+        contactNumber:
+          type: string
+        linkedinFounder:
+          type: string
+        linkedinCompany:
+          type: string
+        headquarters:
+          type: string
+        yearOfIncorporation:
+          type: number
+        problemStatement:
+          type: string
+        solutionOverview:
+          type: string
+        sector:
+          type: string
+        businessModel:
+          type: string
+        stage:
+          type: string
+        coreProduct:
+          type: string
+        techStack:
+          type: array
+          items:
+            type: string
+        usp:
+          type: string
+        hasPatents:
+          type: boolean
+        patentDetails:
+          type: string
+        demoLink:
+          type: string
+        tam:
+          type: string
+        sam:
+          type: string
+        som:
+          type: string
+        customerSegment:
+          type: string
+        competitors:
+          type: string
+        competitiveAdvantage:
+          type: string
+        monthlyRevenue:
+          type: number
+        annualRevenue:
+          type: number
+        growthRate:
+          type: number
+        customerCount:
+          type: number
+        partnerships:
+          type: string
+        achievements:
+          type: string
+        fundingRaised:
+          type: number
+        previousInvestors:
+          type: string
+        burnRate:
+          type: number
+        runway:
+          type: number
+        projectionY1:
+          type: number
+        projectionY2:
+          type: number
+        projectionY3:
+          type: number
+        amountRaising:
+          type: number
+        currency:
+          type: string
+        fundingStage:
+          type: string
+        equityOffered:
+          type: number
+        useOfFunds:
+          type: array
+          items:
+            type: string
+        useOfFundsDetail:
+          type: string
+        founderEducation:
+          type: string
+        founderExperience:
+          type: string
+        teamSize:
+          type: number
+        coreTeam:
+          type: array
+          items:
+            $ref: "#/components/schemas/CoreTeamMember"
+        advisors:
+          type: string
+        whyFSV:
+          type: string
+        fsvValueAdd:
+          type: string
+        openToMentorship:
+          type: boolean
+        isRegistered:
+          type: boolean
+        hasLegalIssues:
+          type: boolean
+        legalExplanation:
+          type: string
+        consentGiven:
+          type: boolean
+
+    ApplicationStatusUpdate:
+      type: object
+      required: [status]
+      properties:
+        status:
+          type: string
+
+    ApplicationSubmitResult:
+      type: object
+      required: [success, applicationId, score]
+      properties:
+        success:
+          type: boolean
+        applicationId:
+          type: string
+        score:
+          type: number
+        scoreBreakdown:
+          $ref: "#/components/schemas/ScoreBreakdown"
+
+    DashboardStats:
+      type: object
+      required: [total, averageScore, shortlisted, thisMonth, bySector, byStage, byStatus]
+      properties:
+        total:
+          type: number
+        averageScore:
+          type: number
+        shortlisted:
+          type: number
+        thisMonth:
+          type: number
+        bySector:
+          type: object
+          additionalProperties:
+            type: number
+        byStage:
+          type: object
+          additionalProperties:
+            type: number
+        byStatus:
+          type: object
+          additionalProperties:
+            type: number
+
+    AiAnalysis:
+      type: object
+      required: [applicationId, analysis]
+      properties:
+        applicationId:
+          type: string
+        analysis:
+          type: string
+        strengths:
+          type: array
+          items:
+            type: string
+        concerns:
+          type: array
+          items:
+            type: string
+        recommendation:
+          type: string
