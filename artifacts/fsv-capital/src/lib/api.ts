@@ -1,6 +1,7 @@
 // Central API client — all fetch calls go through here
-
-const BASE = "/api";
+// VITE_API_URL lets the Vercel frontend point at the Render backend.
+// Leave it unset in Replit — the shared proxy handles /api automatically.
+const BASE = (import.meta.env.VITE_API_URL ?? "") + "/api";
 
 async function req<T>(path: string, options?: RequestInit): Promise<T> {
   const res = await fetch(`${BASE}${path}`, {
@@ -135,5 +136,5 @@ export const api = {
 
   getDashboardStats: () => req<DashboardStats>("/dashboard/stats"),
 
-  exportCsvUrl: () => "/api/export/csv",
+  exportCsvUrl: () => BASE + "/export/csv",
 };
