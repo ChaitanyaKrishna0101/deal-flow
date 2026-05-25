@@ -337,9 +337,9 @@ export default function Dashboard() {
   const STAGES  = ["Idea", "MVP", "Early Revenue", "Growth Stage", "Scaling"];
 
   const selectStyle: React.CSSProperties = {
-    background: "rgba(255,255,255,0.04)", border: "1px solid rgba(255,255,255,0.08)",
-    color: "rgba(240,232,208,0.7)", borderRadius: 8, padding: "8px 12px", fontSize: 13,
-    outline: "none", cursor: "pointer",
+    background: "#111116", border: "1px solid rgba(255,255,255,0.1)",
+    color: "rgba(240,232,208,0.75)", borderRadius: 8, padding: "8px 12px", fontSize: 13,
+    outline: "none", cursor: "pointer", colorScheme: "dark",
   };
 
   const statItems = stats ? [

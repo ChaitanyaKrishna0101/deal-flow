@@ -58,13 +58,12 @@
   --app-font-mono: 'DM Mono', Menlo, monospace;
   --radius: 0.625rem;
 
-  /* brand */
   --gold: #C9A84C;
   --gold-light: #E8C76A;
-  --gold-dim: rgba(201, 168, 76, 0.15);
-  --surface: #0D0D12;
-  --surface-raised: #131318;
-  --surface-overlay: #1A1A22;
+  --gold-dim: rgba(201, 168, 76, 0.12);
+  --surface: #0B0B0F;
+  --surface-raised: #111116;
+  --surface-overlay: #17171E;
   --border-subtle: rgba(255,255,255,0.06);
   --border-gold: rgba(201, 168, 76, 0.3);
 }
@@ -72,45 +71,35 @@
 @layer base {
   * { @apply border-border; box-sizing: border-box; }
   body { @apply font-sans antialiased bg-background text-foreground; }
-  ::selection { background: rgba(201, 168, 76, 0.25); }
+  ::selection { background: rgba(201, 168, 76, 0.22); }
 }
 
-/* Gold gradient text */
-.text-gold { color: var(--gold); }
-.text-gold-gradient {
-  background: linear-gradient(135deg, #E8C76A 0%, #C9A84C 50%, #A87C2A 100%);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
+/* ── Step slide animations ── */
+@keyframes slideInRight {
+  from { transform: translateX(52px); opacity: 0; }
+  to   { transform: translateX(0);    opacity: 1; }
+}
+@keyframes slideInLeft {
+  from { transform: translateX(-52px); opacity: 0; }
+  to   { transform: translateX(0);     opacity: 1; }
 }
 
-/* Glass card */
-.glass-card {
-  background: rgba(19, 19, 24, 0.8);
-  border: 1px solid var(--border-subtle);
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
+/* Gold sweep line */
+@keyframes goldSweep {
+  from { transform: scaleX(0); opacity: 1; }
+  to   { transform: scaleX(1); opacity: 0; }
 }
-.glass-card-gold {
-  background: rgba(19, 19, 24, 0.85);
-  border: 1px solid var(--border-gold);
-  backdrop-filter: blur(12px);
+.gold-sweep {
+  transform-origin: left center;
+  animation: goldSweep 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards;
 }
 
-/* Score ring animation */
-@keyframes ring-fill {
-  from { stroke-dashoffset: 100; }
+/* Step enter animations */
+.step-enter-forward {
+  animation: slideInRight 0.38s cubic-bezier(0.16, 1, 0.3, 1) both;
 }
-
-/* Subtle grain texture overlay */
-body::before {
-  content: '';
-  position: fixed;
-  inset: 0;
-  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.03'/%3E%3C/svg%3E");
-  pointer-events: none;
-  z-index: 0;
-  opacity: 0.4;
+.step-enter-back {
+  animation: slideInLeft 0.38s cubic-bezier(0.16, 1, 0.3, 1) both;
 }
 
 /* Glow pulse */
@@ -118,17 +107,36 @@ body::before {
   0%, 100% { opacity: 0.6; }
   50% { opacity: 1; }
 }
-.glow-dot {
-  animation: glow-pulse 2s ease-in-out infinite;
+.glow-dot { animation: glow-pulse 2s ease-in-out infinite; }
+
+/* Locked step shake */
+@keyframes shake {
+  0%,100% { transform: translateX(0); }
+  25%      { transform: translateX(-6px); }
+  75%      { transform: translateX(6px); }
+}
+.shake { animation: shake 0.3s ease; }
+
+/* Dark native selects */
+input, textarea, select { color-scheme: dark; }
+
+/* Custom select arrow */
+select {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='6'%3E%3Cpath d='M0 0l5 6 5-6z' fill='%23C9A84C' opacity='.6'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 12px center;
+  padding-right: 32px !important;
+  -webkit-appearance: none;
+  appearance: none;
 }
 
-/* Input dark styles */
-input[type="text"],
-input[type="email"],
-input[type="number"],
-input[type="url"],
-input[type="tel"],
-textarea,
-select {
-  color-scheme: dark;
+/* Grain overlay */
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.025'/%3E%3C/svg%3E");
+  pointer-events: none;
+  z-index: 0;
+  opacity: 0.35;
 }
