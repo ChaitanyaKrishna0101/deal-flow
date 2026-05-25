@@ -1,5 +1,3 @@
-// Multi-step form wrapper — orchestrates 11 steps + review + submission
-
 import { useState, useEffect } from "react";
 import ProgressBar from "@/components/ProgressBar";
 import Step1 from "./form/Step1";
@@ -21,17 +19,17 @@ import SuccessPage from "./SuccessPage";
 import RejectedPage from "./RejectedPage";
 
 const STEPS = [
-  { title: "Basic Information", component: Step1 },
-  { title: "Startup Overview", component: Step2 },
+  { title: "Basic Information",    component: Step1 },
+  { title: "Startup Overview",     component: Step2 },
   { title: "Product & Technology", component: Step3 },
-  { title: "Market Opportunity", component: Step4 },
-  { title: "Traction & Metrics", component: Step5 },
-  { title: "Financials", component: Step6 },
-  { title: "Funding Requirement", component: Step7 },
-  { title: "Team", component: Step8 },
-  { title: "Strategic Fit", component: Step9 },
-  { title: "Documents", component: Step10 },
-  { title: "Compliance", component: Step11 },
+  { title: "Market Opportunity",   component: Step4 },
+  { title: "Traction & Metrics",   component: Step5 },
+  { title: "Financials",           component: Step6 },
+  { title: "Funding Requirement",  component: Step7 },
+  { title: "Team",                 component: Step8 },
+  { title: "Strategic Fit",        component: Step9 },
+  { title: "Documents",            component: Step10 },
+  { title: "Compliance",           component: Step11 },
 ];
 
 type PageState = "form" | "review" | "success" | "rejected";
@@ -39,7 +37,6 @@ type PageState = "form" | "review" | "success" | "rejected";
 function validate(step: number, data: Record<string, unknown>): Record<string, string> {
   const errors: Record<string, string> = {};
   const g = (k: string) => String(data[k] || "");
-
   if (step === 1) {
     if (!g("startupName").trim()) errors.startupName = "Required";
     if (!g("founderNames").trim()) errors.founderNames = "Required";
@@ -47,8 +44,8 @@ function validate(step: number, data: Record<string, unknown>): Record<string, s
     else if (!/\S+@\S+\.\S+/.test(g("contactEmail"))) errors.contactEmail = "Invalid email";
   }
   if (step === 2) {
-    if (g("problemStatement").length < 50) errors.problemStatement = "Minimum 50 characters required";
-    if (g("solutionOverview").length < 50) errors.solutionOverview = "Minimum 50 characters required";
+    if (g("problemStatement").length < 50) errors.problemStatement = "Minimum 50 characters";
+    if (g("solutionOverview").length < 50) errors.solutionOverview = "Minimum 50 characters";
     if (!g("sector")) errors.sector = "Please select a sector";
     if (!g("businessModel")) errors.businessModel = "Please select a business model";
     if (!g("stage")) errors.stage = "Please select a stage";
@@ -60,7 +57,7 @@ function validate(step: number, data: Record<string, unknown>): Record<string, s
     if (!data.amountRaising) errors.amountRaising = "Required";
   }
   if (step === 9) {
-    if (g("whyFSV").length < 100) errors.whyFSV = "Minimum 100 characters required";
+    if (g("whyFSV").length < 100) errors.whyFSV = "Minimum 100 characters";
   }
   if (step === 11) {
     if (!data.consentGiven) errors.consentGiven = "You must consent to proceed";
@@ -78,14 +75,11 @@ export default function ApplicationForm() {
   const [result, setResult] = useState<{ applicationId: string; score: number } | null>(null);
   const [rejectedReason, setRejectedReason] = useState("");
 
-  // Save to localStorage on every change
-  useEffect(() => {
-    saveFormData(data);
-  }, [data]);
+  useEffect(() => { saveFormData(data); }, [data]);
 
   const update = (key: string, value: unknown) => {
-    setData((prev) => ({ ...prev, [key]: value }));
-    if (errors[key]) setErrors((e) => { const n = { ...e }; delete n[key]; return n; });
+    setData(prev => ({ ...prev, [key]: value }));
+    if (errors[key]) setErrors(e => { const n = { ...e }; delete n[key]; return n; });
   };
 
   const goNext = () => {
@@ -111,7 +105,6 @@ export default function ApplicationForm() {
       setPage("rejected");
       return;
     }
-
     setSubmitting(true);
     setSubmitError("");
     try {
@@ -130,79 +123,85 @@ export default function ApplicationForm() {
     }
   };
 
-  const handleReset = () => {
-    setData({});
-    setStep(1);
-    setPage("form");
-    setResult(null);
-    setErrors({});
-  };
+  const handleReset = () => { setData({}); setStep(1); setPage("form"); setResult(null); setErrors({}); };
 
-  if (page === "success" && result) {
-    return <SuccessPage applicationId={result.applicationId} score={result.score} onReset={handleReset} />;
-  }
-
-  if (page === "rejected") {
-    return <RejectedPage reason={rejectedReason} onBack={() => setPage("review")} />;
-  }
-
-  if (page === "review") {
-    return (
-      <ReviewScreen
-        data={data}
-        onEdit={editSection}
-        onSubmit={handleSubmit}
-        submitting={submitting}
-        error={submitError}
-      />
-    );
-  }
+  if (page === "success" && result) return <SuccessPage applicationId={result.applicationId} score={result.score} onReset={handleReset} />;
+  if (page === "rejected") return <RejectedPage reason={rejectedReason} onBack={() => setPage("review")} />;
+  if (page === "review") return <ReviewScreen data={data} onEdit={editSection} onSubmit={handleSubmit} submitting={submitting} error={submitError} />;
 
   const StepComponent = STEPS[step - 1].component;
 
   return (
-    <div className="min-h-screen bg-gray-50 py-8 px-4">
-      <div className="max-w-2xl mx-auto">
+    <div style={{ minHeight: "100vh", background: "var(--surface)", padding: "32px 16px", position: "relative" }}>
+      {/* Top gold line */}
+      <div style={{ position: "fixed", top: 0, left: 0, right: 0, height: 1, background: "linear-gradient(90deg, transparent, var(--gold), transparent)", opacity: 0.5, zIndex: 100 }} />
+
+      <div style={{ maxWidth: 640, margin: "0 auto" }}>
         {/* Header */}
-        <div className="flex items-center justify-between mb-6">
-          <div className="flex items-center gap-2">
-            <div className="w-7 h-7 rounded-lg bg-indigo-600 flex items-center justify-center">
-              <span className="text-white font-bold text-xs">F</span>
+        <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", marginBottom: 24 }}>
+          <div style={{ display: "flex", alignItems: "center", gap: 10 }}>
+            <div style={{
+              width: 32, height: 32, borderRadius: 8,
+              background: "linear-gradient(135deg, #C9A84C, #A87C2A)",
+              display: "flex", alignItems: "center", justifyContent: "center",
+              boxShadow: "0 0 12px rgba(201,168,76,0.25)",
+            }}>
+              <span style={{ color: "#0D0D12", fontWeight: 800, fontSize: 12, fontFamily: "'DM Serif Display'" }}>F</span>
             </div>
-            <span className="font-semibold text-gray-800">FSV Capital</span>
+            <span style={{ fontFamily: "'DM Serif Display'", fontSize: 16, color: "#E8C76A" }}>FSV Capital</span>
           </div>
-          <a href="/" className="text-xs text-gray-400 hover:text-gray-600">← Back to Home</a>
+          <a href="/" style={{ color: "rgba(255,255,255,0.3)", fontSize: 12, textDecoration: "none" }}>← Back to Home</a>
         </div>
 
         {/* Card */}
-        <div className="bg-white rounded-2xl border border-gray-100 shadow-sm p-8">
+        <div style={{
+          background: "var(--surface-raised)", border: "1px solid var(--border-subtle)",
+          borderRadius: 20, padding: "32px",
+          boxShadow: "0 24px 60px rgba(0,0,0,0.4)",
+        }}>
           <ProgressBar current={step} total={STEPS.length} title={STEPS[step - 1].title} />
 
-          <h2 className="text-xl font-semibold text-gray-900 mb-5">{STEPS[step - 1].title}</h2>
+          <h2 style={{
+            fontFamily: "'DM Serif Display'", fontSize: 24, color: "#F0E8D0",
+            margin: "0 0 20px", letterSpacing: "-0.02em",
+          }}>{STEPS[step - 1].title}</h2>
 
           <StepComponent data={data} update={update} errors={errors} />
 
           {/* Navigation */}
-          <div className="flex items-center justify-between mt-8 pt-6 border-t border-gray-100">
+          <div style={{
+            display: "flex", alignItems: "center", justifyContent: "space-between",
+            marginTop: 32, paddingTop: 24, borderTop: "1px solid var(--border-subtle)",
+          }}>
             <button
               onClick={goBack}
               disabled={step === 1}
-              className="px-5 py-2.5 border border-gray-200 text-gray-600 rounded-lg text-sm font-medium hover:bg-gray-50 disabled:opacity-30 disabled:cursor-not-allowed transition-colors"
-            >
-              ← Back
-            </button>
+              style={{
+                background: "none", border: "1px solid rgba(255,255,255,0.08)",
+                color: "rgba(255,255,255,0.4)", borderRadius: 10, padding: "10px 20px",
+                fontSize: 13, fontWeight: 500, cursor: step === 1 ? "not-allowed" : "pointer",
+                opacity: step === 1 ? 0.3 : 1, transition: "all 0.2s",
+              }}
+            >← Back</button>
             <button
               onClick={goNext}
-              className="px-6 py-2.5 bg-indigo-600 hover:bg-indigo-700 text-white rounded-lg text-sm font-semibold transition-colors"
+              style={{
+                background: "linear-gradient(135deg, #C9A84C, #A87C2A)",
+                color: "#0D0D12", border: "none", borderRadius: 10, padding: "10px 24px",
+                fontSize: 13, fontWeight: 700, cursor: "pointer",
+                boxShadow: "0 0 20px rgba(201,168,76,0.25)",
+                transition: "all 0.25s",
+              }}
+              onMouseEnter={e => { e.currentTarget.style.transform = "translateY(-1px)"; e.currentTarget.style.boxShadow = "0 0 30px rgba(201,168,76,0.35)"; }}
+              onMouseLeave={e => { e.currentTarget.style.transform = "translateY(0)"; e.currentTarget.style.boxShadow = "0 0 20px rgba(201,168,76,0.25)"; }}
             >
               {step === STEPS.length ? "Review Application →" : "Next →"}
             </button>
           </div>
         </div>
 
-        {/* Auto-save notice */}
-        <p className="text-center text-xs text-gray-400 mt-3">
-          Progress auto-saved · Refresh-safe
+        <p style={{ textAlign: "center", color: "rgba(255,255,255,0.2)", fontSize: 11, marginTop: 12, fontFamily: "'DM Mono'" }}>
+          Auto-saved · Refresh-safe · Step {step}/{STEPS.length}
         </p>
       </div>
     </div>

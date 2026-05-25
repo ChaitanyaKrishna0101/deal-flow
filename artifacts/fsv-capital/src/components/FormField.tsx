@@ -1,5 +1,3 @@
-// Reusable form field components
-
 interface FieldProps {
   label: string;
   required?: boolean;
@@ -9,42 +7,60 @@ interface FieldProps {
 
 export function Field({ label, required, error, children }: FieldProps) {
   return (
-    <div className="flex flex-col gap-1.5">
-      <label className="text-xs font-medium text-gray-600">
-        {label}{required && <span className="text-red-500 ml-0.5">*</span>}
+    <div style={{ display: "flex", flexDirection: "column", gap: 6 }}>
+      <label style={{ fontSize: 12, fontWeight: 500, color: "rgba(240,232,208,0.55)", letterSpacing: "0.02em" }}>
+        {label}
+        {required && <span style={{ color: "#C9A84C", marginLeft: 3 }}>*</span>}
       </label>
       {children}
-      {error && <p className="text-xs text-red-500">{error}</p>}
+      {error && <p style={{ fontSize: 11, color: "#F87171", margin: 0 }}>{error}</p>}
     </div>
   );
 }
 
-interface InputProps extends React.InputHTMLAttributes<HTMLInputElement> {
-  error?: boolean;
-}
+const baseInput: React.CSSProperties = {
+  width: "100%", height: 44, padding: "0 14px",
+  background: "rgba(255,255,255,0.03)",
+  border: "1px solid rgba(255,255,255,0.08)",
+  borderRadius: 10, fontSize: 14, color: "#F0E8D0",
+  outline: "none", transition: "border-color 0.2s, box-shadow 0.2s",
+  boxSizing: "border-box",
+};
+const errorInput: React.CSSProperties = {
+  ...baseInput, borderColor: "rgba(248,113,113,0.4)", background: "rgba(248,113,113,0.04)",
+};
 
-export function Input({ error, className = "", ...props }: InputProps) {
+interface InputProps extends React.InputHTMLAttributes<HTMLInputElement> { error?: boolean; }
+
+export function Input({ error, style, onFocus, onBlur, ...props }: InputProps) {
   return (
     <input
-      className={`w-full h-11 px-3 rounded-lg border text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent transition-colors ${
-        error ? "border-red-400 bg-red-50" : "border-gray-200 bg-white"
-      } ${className}`}
+      style={error ? { ...errorInput, ...style } : { ...baseInput, ...style }}
+      onFocus={e => { e.currentTarget.style.borderColor = "rgba(201,168,76,0.4)"; e.currentTarget.style.boxShadow = "0 0 0 3px rgba(201,168,76,0.07)"; onFocus?.(e); }}
+      onBlur={e => { e.currentTarget.style.borderColor = error ? "rgba(248,113,113,0.4)" : "rgba(255,255,255,0.08)"; e.currentTarget.style.boxShadow = "none"; onBlur?.(e); }}
       {...props}
     />
   );
 }
 
-interface TextareaProps extends React.TextareaHTMLAttributes<HTMLTextAreaElement> {
-  error?: boolean;
-}
+interface TextareaProps extends React.TextareaHTMLAttributes<HTMLTextAreaElement> { error?: boolean; }
 
-export function Textarea({ error, className = "", ...props }: TextareaProps) {
+export function Textarea({ error, style, onFocus, onBlur, ...props }: TextareaProps) {
+  const base: React.CSSProperties = {
+    width: "100%", padding: "12px 14px",
+    background: "rgba(255,255,255,0.03)",
+    border: `1px solid ${error ? "rgba(248,113,113,0.4)" : "rgba(255,255,255,0.08)"}`,
+    borderRadius: 10, fontSize: 14, color: "#F0E8D0",
+    outline: "none", resize: "none", lineHeight: 1.6,
+    boxSizing: "border-box", transition: "border-color 0.2s, box-shadow 0.2s",
+    ...style,
+  };
   return (
     <textarea
       rows={4}
-      className={`w-full px-3 py-2.5 rounded-lg border text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent transition-colors resize-none ${
-        error ? "border-red-400 bg-red-50" : "border-gray-200 bg-white"
-      } ${className}`}
+      style={base}
+      onFocus={e => { e.currentTarget.style.borderColor = "rgba(201,168,76,0.4)"; e.currentTarget.style.boxShadow = "0 0 0 3px rgba(201,168,76,0.07)"; onFocus?.(e); }}
+      onBlur={e => { e.currentTarget.style.borderColor = error ? "rgba(248,113,113,0.4)" : "rgba(255,255,255,0.08)"; e.currentTarget.style.boxShadow = "none"; onBlur?.(e); }}
       {...props}
     />
   );
@@ -55,18 +71,25 @@ interface SelectProps extends React.SelectHTMLAttributes<HTMLSelectElement> {
   error?: boolean;
 }
 
-export function Select({ options, error, className = "", ...props }: SelectProps) {
+export function Select({ options, error, style, onFocus, onBlur, ...props }: SelectProps) {
+  const base: React.CSSProperties = {
+    width: "100%", height: 44, padding: "0 14px",
+    background: "rgba(255,255,255,0.03)",
+    border: `1px solid ${error ? "rgba(248,113,113,0.4)" : "rgba(255,255,255,0.08)"}`,
+    borderRadius: 10, fontSize: 14, color: "#F0E8D0",
+    outline: "none", cursor: "pointer", boxSizing: "border-box",
+    transition: "border-color 0.2s",
+    ...style,
+  };
   return (
     <select
-      className={`w-full h-11 px-3 rounded-lg border text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent transition-colors bg-white ${
-        error ? "border-red-400" : "border-gray-200"
-      } ${className}`}
+      style={base}
+      onFocus={e => { e.currentTarget.style.borderColor = "rgba(201,168,76,0.4)"; onFocus?.(e as React.FocusEvent<HTMLSelectElement>); }}
+      onBlur={e => { e.currentTarget.style.borderColor = error ? "rgba(248,113,113,0.4)" : "rgba(255,255,255,0.08)"; onBlur?.(e as React.FocusEvent<HTMLSelectElement>); }}
       {...props}
     >
-      <option value="">Select...</option>
-      {options.map((o) => (
-        <option key={o.value} value={o.value}>{o.label}</option>
-      ))}
+      <option value="" style={{ background: "#131318" }}>Select...</option>
+      {options.map(o => <option key={o.value} value={o.value} style={{ background: "#131318" }}>{o.label}</option>)}
     </select>
   );
 }
@@ -80,18 +103,15 @@ interface RadioGroupProps {
 
 export function RadioGroup({ name, options, value, onChange }: RadioGroupProps) {
   return (
-    <div className="flex gap-4 flex-wrap">
-      {options.map((o) => (
-        <label key={o.value} className="flex items-center gap-2 cursor-pointer">
+    <div style={{ display: "flex", gap: 12, flexWrap: "wrap" }}>
+      {options.map(o => (
+        <label key={o.value} style={{ display: "flex", alignItems: "center", gap: 8, cursor: "pointer" }}>
           <input
-            type="radio"
-            name={name}
-            value={o.value}
-            checked={value === o.value}
-            onChange={() => onChange(o.value)}
-            className="w-4 h-4 text-indigo-600 focus:ring-indigo-500"
+            type="radio" name={name} value={o.value}
+            checked={value === o.value} onChange={() => onChange(o.value)}
+            style={{ accentColor: "var(--gold)", width: 14, height: 14 }}
           />
-          <span className="text-sm text-gray-700">{o.label}</span>
+          <span style={{ fontSize: 13, color: "rgba(240,232,208,0.7)" }}>{o.label}</span>
         </label>
       ))}
     </div>
@@ -106,21 +126,18 @@ interface CheckboxGroupProps {
 
 export function CheckboxGroup({ options, value, onChange }: CheckboxGroupProps) {
   const toggle = (opt: string) => {
-    if (value.includes(opt)) onChange(value.filter((v) => v !== opt));
+    if (value.includes(opt)) onChange(value.filter(v => v !== opt));
     else onChange([...value, opt]);
   };
-
   return (
-    <div className="flex gap-3 flex-wrap">
-      {options.map((opt) => (
-        <label key={opt} className="flex items-center gap-2 cursor-pointer">
+    <div style={{ display: "flex", gap: 10, flexWrap: "wrap" }}>
+      {options.map(opt => (
+        <label key={opt} style={{ display: "flex", alignItems: "center", gap: 7, cursor: "pointer" }}>
           <input
-            type="checkbox"
-            checked={value.includes(opt)}
-            onChange={() => toggle(opt)}
-            className="w-4 h-4 text-indigo-600 rounded focus:ring-indigo-500"
+            type="checkbox" checked={value.includes(opt)} onChange={() => toggle(opt)}
+            style={{ accentColor: "var(--gold)", width: 14, height: 14 }}
           />
-          <span className="text-sm text-gray-700">{opt}</span>
+          <span style={{ fontSize: 13, color: "rgba(240,232,208,0.7)" }}>{opt}</span>
         </label>
       ))}
     </div>

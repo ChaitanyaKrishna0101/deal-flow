@@ -1,3 +1,4 @@
+@import url('https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=Inter:wght@300;400;500;600;700&family=DM+Mono:wght@400;500&display=swap');
 @import "tailwindcss";
 @import "tw-animate-css";
 
@@ -25,6 +26,7 @@
   --color-popover-foreground: hsl(var(--popover-foreground));
   --font-sans: var(--app-font-sans);
   --font-serif: var(--app-font-serif);
+  --font-mono: var(--app-font-mono);
   --radius-sm: calc(var(--radius) - 4px);
   --radius-md: calc(var(--radius) - 2px);
   --radius-lg: var(--radius);
@@ -32,32 +34,101 @@
 }
 
 :root {
-  --background: 250 250 250;
-  --foreground: 17 24 39;
-  --border: 229 231 235;
-  --input: 229 231 235;
-  --ring: 99 102 241;
-  --card: 255 255 255;
-  --card-foreground: 17 24 39;
-  --popover: 255 255 255;
-  --popover-foreground: 17 24 39;
-  --primary: 99 102 241;
-  --primary-foreground: 255 255 255;
-  --secondary: 238 242 255;
-  --secondary-foreground: 99 102 241;
-  --muted: 249 250 251;
-  --muted-foreground: 107 114 128;
-  --accent: 99 102 241;
-  --accent-foreground: 255 255 255;
-  --destructive: 239 68 68;
-  --destructive-foreground: 255 255 255;
+  --background: 220 14% 5%;
+  --foreground: 45 20% 90%;
+  --border: 220 14% 12%;
+  --input: 220 14% 10%;
+  --ring: 43 74% 49%;
+  --card: 220 14% 7%;
+  --card-foreground: 45 20% 90%;
+  --popover: 220 14% 7%;
+  --popover-foreground: 45 20% 90%;
+  --primary: 43 74% 49%;
+  --primary-foreground: 220 14% 5%;
+  --secondary: 220 14% 11%;
+  --secondary-foreground: 45 20% 70%;
+  --muted: 220 14% 9%;
+  --muted-foreground: 220 10% 45%;
+  --accent: 43 74% 49%;
+  --accent-foreground: 220 14% 5%;
+  --destructive: 0 72% 51%;
+  --destructive-foreground: 0 0% 100%;
   --app-font-sans: 'Inter', sans-serif;
-  --app-font-serif: 'Instrument Serif', Georgia, serif;
-  --app-font-mono: Menlo, monospace;
-  --radius: 0.5rem;
+  --app-font-serif: 'DM Serif Display', Georgia, serif;
+  --app-font-mono: 'DM Mono', Menlo, monospace;
+  --radius: 0.625rem;
+
+  /* brand */
+  --gold: #C9A84C;
+  --gold-light: #E8C76A;
+  --gold-dim: rgba(201, 168, 76, 0.15);
+  --surface: #0D0D12;
+  --surface-raised: #131318;
+  --surface-overlay: #1A1A22;
+  --border-subtle: rgba(255,255,255,0.06);
+  --border-gold: rgba(201, 168, 76, 0.3);
 }
 
 @layer base {
   * { @apply border-border; box-sizing: border-box; }
   body { @apply font-sans antialiased bg-background text-foreground; }
+  ::selection { background: rgba(201, 168, 76, 0.25); }
+}
+
+/* Gold gradient text */
+.text-gold { color: var(--gold); }
+.text-gold-gradient {
+  background: linear-gradient(135deg, #E8C76A 0%, #C9A84C 50%, #A87C2A 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* Glass card */
+.glass-card {
+  background: rgba(19, 19, 24, 0.8);
+  border: 1px solid var(--border-subtle);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+}
+.glass-card-gold {
+  background: rgba(19, 19, 24, 0.85);
+  border: 1px solid var(--border-gold);
+  backdrop-filter: blur(12px);
+}
+
+/* Score ring animation */
+@keyframes ring-fill {
+  from { stroke-dashoffset: 100; }
+}
+
+/* Subtle grain texture overlay */
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.03'/%3E%3C/svg%3E");
+  pointer-events: none;
+  z-index: 0;
+  opacity: 0.4;
+}
+
+/* Glow pulse */
+@keyframes glow-pulse {
+  0%, 100% { opacity: 0.6; }
+  50% { opacity: 1; }
+}
+.glow-dot {
+  animation: glow-pulse 2s ease-in-out infinite;
+}
+
+/* Input dark styles */
+input[type="text"],
+input[type="email"],
+input[type="number"],
+input[type="url"],
+input[type="tel"],
+textarea,
+select {
+  color-scheme: dark;
 }

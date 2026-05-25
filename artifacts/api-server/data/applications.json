@@ -1,5 +1,87 @@
 [
   {
+    "startupName": "NovaPay Technologies",
+    "websiteUrl": "https://www.novapayhq.com",
+    "founderNames": "Arjun Mehta & Priya Nair",
+    "contactEmail": "arjun@novapayhq.com",
+    "headquartersCountry": "India",
+    "contactNumber": "+91 98400 12345",
+    "headquartersCity": "Hyderabad",
+    "yearOfIncorporation": "2007",
+    "linkedinFounder": "https://linkedin.com/in/arjunmehta-fin",
+    "businessModel": "B2B",
+    "sector": "Fintech",
+    "stage": "Early Revenue",
+    "linkedinCompany": "https://linkedin.com/company/novapayhq",
+    "problemStatement": "Small and mid-sized businesses across Southeast Asia lose an average of 14% of revenue annually to delayed cross-border payments, hidden FX fees, and fragmented banking infrastructure. Existing solutions like SWIFT are slow (3–5 days), expensive (2–4% per transaction), and inaccessible to businesses without established credit history.",
+    "solutionOverview": "NovaPay is a real-time B2B payments platform that enables SMEs to send and receive cross-border payments in under 90 seconds at a flat 0.4% fee, using a hybrid stablecoin-rail and local banking network. Businesses get a unified dashboard to manage multi-currency accounts, automate payroll, and reconcile transactions in real time.",
+    "coreProduct": "NovaPay's core product is a multi-currency B2B payment gateway with three modules: (1) InstantSend — cross-border transfers settled in under 90 seconds; (2) FX Vault — a multi-currency wallet with real-time exchange rates locked at time of transaction; (3) PayOps — automated vendor payment scheduling and reconciliation dashboard.",
+    "usp": "Unlike legacy SWIFT rails or neobanks targeting consumers, NovaPay is purpose-built for B2B SME cross-border payments with no monthly fees, no minimum volumes, and settlement guarantees backed by smart contract escrow — making enterprise-grade payments accessible to businesses doing as little as $10K/month in cross-border volume.",
+    "techStack": [
+      "AI/ML",
+      "Blockchain",
+      "Cloud",
+      "APIs"
+    ],
+    "hasPatents": true,
+    "patentDetails": "Yes — Patent pending on smart contract escrow settlement mechanism (Application #IN2024CH00412)",
+    "demoLink": "https://demo.novapayhq.com",
+    "productVideoLink": " https://www.loom.com/share/novapaydemo2024",
+    "tam": "$2.1 Trillion",
+    "sam": "$180 Billion",
+    "som": "$420 Million ",
+    "customerSegment": "SMEs with 10–500 employees operating in import/export, e-commerce, IT services, and manufacturing sectors in India, Singapore, and the UAE, doing $50K–$5M in annual cross-border transactions.",
+    "competitors": "Wise Business, Airwallex, Payoneer, Razorpay Cross-Border, and regional banks' FX services.",
+    "competitiveAdvantage": "90-second settlement vs. industry average of 1–3 days; 0.4% flat fee vs. 1.5–4% industry standard; patent-pending escrow smart contract reduces counterparty risk; deep local banking integrations in India (UPI/NEFT) and UAE (ADCB, Emirates NBD) that pure fintech players lack.",
+    "monthlyRevenue": 28000,
+    "annualRevenue": 210000,
+    "growthRate": 22,
+    "customerCount": 87,
+    "partnerships": "Axis Bank India (banking rails partner), ADCB UAE (correspondent banking), AWS Activate (cloud infrastructure credits), FinTech Festival Singapore (official cohort partner 2024).",
+    "achievements": "Selected for NASSCOM DeepTech Club 2024; Winner — GITEX Fintech Startup Pitch Dubai 2024; Featured in Inc42 \"Top 30 Fintech Startups to Watch 2025.\"",
+    "fundingRaised": 320000,
+    "previousInvestors": "Angel investors — Ravi Shankar (ex-PayU CFO), Meena Kapoor (Inflection Point Ventures); $320K pre-seed round closed March 2024",
+    "runway": 9,
+    "burnRate": 1680000,
+    "projectionY1": 7800000,
+    "projectionY2": 2400000,
+    "projectionY3": 679988,
+    "amountRaising": 1500000,
+    "fundingStage": "Seed",
+    "equityOffered": 9,
+    "useOfFunds": [
+      "Expansion",
+      "Hiring",
+      "Go-to-Market"
+    ],
+    "useOfFundsDetail": "35% — Product: Build FX Vault v2, compliance automation, and mobile app. 30% — GTM: Sales team expansion across Singapore and UAE, partnership BD. 25% — Hiring: CTO (backend infra), Head of Compliance, 3 senior engineers. 10% — Regulatory: Obtain PSP licenses in Singapore (MAS) and UAE (CBUAE).",
+    "founderEducation": "Arjun Mehta: B.Tech Computer Science, IIT Bombay (2014); MBA Finance, ISB Hyderabad (2018). Priya Nair: B.Com, SRCC Delhi (2015); Chartered Accountant (ICAI, 2017); FinTech specialization, London Business School Executive Program (2022).",
+    "founderExperience": "Arjun: 6 years at PayU as Senior Product Manager (cross-border payments); led launch of PayU's B2B FX product in 7 markets. Priya: 7 years at Deloitte Financial Advisory (FinTech regulation & compliance); led regulatory filings for 3 licensed payment institutions in Southeast Asia.",
+    "teamSize": 5,
+    "advisors": "Vikram Desai — Former MD, Visa India (Strategic advisor); Dr. Anita Rao — Professor of FinTech Regulation, ISB (Compliance advisor); Jason Lim — Partner, Vertex Ventures SEA (GTM advisor).",
+    "whyFSV": "FSV Capital's portfolio focus on Fintech and DeepTech aligns precisely with NovaPay's infrastructure-layer approach to cross-border payments. Unlike generalist VCs, FSV's operational expertise in scaling regulated financial products across emerging markets is directly relevant to our next 18-month roadmap — obtaining PSP licenses in Singapore and UAE and expanding our banking rail partnerships. We've studied FSV's work with portfolio companies in the payment infrastructure space and believe the firm's regulatory network and GTM playbook in Southeast Asia are assets no capital-only investor can replicate.",
+    "fsvValueAdd": "Introductions to regulated banking partners in Singapore and UAE; guidance on MAS and CBUAE licensing process; access to FSV's B2B customer network for early enterprise pilot conversations; mentorship on building compliance-first product culture.",
+    "openToMentorship": true,
+    "pitchDeckName": "FSV_DealBrief_NovaPay.pdf",
+    "isRegistered": true,
+    "hasLegalIssues": false,
+    "consentGiven": true,
+    "headquarters": "Hyderabad India",
+    "id": "FSV-2026-21719",
+    "applicationId": "FSV-2026-21719",
+    "submittedAt": "2026-05-25T11:22:01.421Z",
+    "status": "Under Review",
+    "dealScore": 55,
+    "scoreBreakdown": {
+      "marketSize": 5,
+      "revenueStage": 15,
+      "teamStrength": 20,
+      "traction": 10,
+      "innovation": 5
+    },
+    "aiAnalysis": null
+  },
+  {
     "id": "FSV-2026-72341",
     "applicationId": "FSV-2026-72341",
     "submittedAt": "2026-05-20T09:15:00.000Z",
@@ -17,7 +99,12 @@
     "businessModel": "SaaS",
     "stage": "Early Revenue",
     "coreProduct": "AI-powered B2B cross-border payments platform with instant settlement",
-    "techStack": ["AI/ML", "Blockchain", "Cloud", "APIs"],
+    "techStack": [
+      "AI/ML",
+      "Blockchain",
+      "Cloud",
+      "APIs"
+    ],
     "usp": "10x cheaper and 100x faster than traditional SWIFT wires, with ML-optimized routing across stablecoin and traditional rails",
     "hasPatents": false,
     "demoLink": "https://demo.neuralpay.io",
@@ -44,15 +131,31 @@
     "currency": "USD",
     "fundingStage": "Seed",
     "equityOffered": 12,
-    "useOfFunds": ["Product Development", "Hiring", "Go-to-Market"],
+    "useOfFunds": [
+      "Product Development",
+      "Hiring",
+      "Go-to-Market"
+    ],
     "useOfFundsDetail": "40% engineering (3 senior hires), 35% sales & marketing, 25% compliance & licensing",
     "founderEducation": "Aisha: MIT CS + MBA Wharton. Rohan: IIT Bombay CS, Stanford MS AI.",
     "founderExperience": "Aisha: 6 years at Square (led payments infrastructure), 2 years at Stripe. Rohan: 4 years at Google Pay India, built UPI integrations serving 50M users.",
     "teamSize": 7,
     "coreTeam": [
-      {"name": "Aisha Khan", "role": "CEO", "linkedin": "linkedin.com/in/aishakhan"},
-      {"name": "Rohan Mehta", "role": "CTO", "linkedin": "linkedin.com/in/rohanmehta"},
-      {"name": "Sara Liu", "role": "Head of Compliance", "linkedin": "linkedin.com/in/saraliu"}
+      {
+        "name": "Aisha Khan",
+        "role": "CEO",
+        "linkedin": "linkedin.com/in/aishakhan"
+      },
+      {
+        "name": "Rohan Mehta",
+        "role": "CTO",
+        "linkedin": "linkedin.com/in/rohanmehta"
+      },
+      {
+        "name": "Sara Liu",
+        "role": "Head of Compliance",
+        "linkedin": "linkedin.com/in/saraliu"
+      }
     ],
     "advisors": "Patrick Collison (Stripe), Balaji Srinivasan (a16z crypto), ex-SWIFT CTO",
     "whyFSV": "FSV Capital's deep fintech portfolio and regulatory navigation expertise is exactly what NeuralPay needs to crack the compliance challenge in new markets. We specifically want FSV's connections in the Middle East corridor, which is our next expansion. No other VC we've spoken with has that specific edge.",
@@ -88,7 +191,11 @@
     "businessModel": "SaaS",
     "stage": "MVP",
     "coreProduct": "Automated PQC migration platform with AI-powered vulnerability prioritization",
-    "techStack": ["AI/ML", "Cloud", "APIs"],
+    "techStack": [
+      "AI/ML",
+      "Cloud",
+      "APIs"
+    ],
     "usp": "Only platform that fully automates the PQC migration workflow end-to-end, reducing enterprise migration time from 18 months to 6 weeks",
     "hasPatents": true,
     "patentDetails": "2 provisional patents on AI-based cryptographic vulnerability scoring (USPTO pending)",
@@ -116,15 +223,31 @@
     "currency": "USD",
     "fundingStage": "Seed",
     "equityOffered": 15,
-    "useOfFunds": ["Hiring", "Product Development", "Go-to-Market"],
+    "useOfFunds": [
+      "Hiring",
+      "Product Development",
+      "Go-to-Market"
+    ],
     "useOfFundsDetail": "50% team (4 cryptography engineers + 1 enterprise sales), 30% product R&D, 20% sales & marketing",
     "founderEducation": "PhD Cryptography, Oxford University. Published 12 peer-reviewed papers on post-quantum algorithms.",
     "founderExperience": "8 years GCHQ cryptography researcher, led NCSC post-quantum standards working group, 2 years consulting for HSBC on quantum readiness",
     "teamSize": 5,
     "coreTeam": [
-      {"name": "Dr. Elena Vasquez", "role": "CEO / Chief Cryptographer", "linkedin": "linkedin.com/in/elenavasquez"},
-      {"name": "James Wu", "role": "CTO", "linkedin": "linkedin.com/in/jameswu"},
-      {"name": "Priya Nair", "role": "Head of Sales", "linkedin": "linkedin.com/in/priyanair"}
+      {
+        "name": "Dr. Elena Vasquez",
+        "role": "CEO / Chief Cryptographer",
+        "linkedin": "linkedin.com/in/elenavasquez"
+      },
+      {
+        "name": "James Wu",
+        "role": "CTO",
+        "linkedin": "linkedin.com/in/jameswu"
+      },
+      {
+        "name": "Priya Nair",
+        "role": "Head of Sales",
+        "linkedin": "linkedin.com/in/priyanair"
+      }
     ],
     "advisors": "Prof. Oded Regev (NYU lattice cryptography), Sir Jeremy Fleming (ex-GCHQ Director), Ciaran Martin (ex-NCSC CEO)",
     "whyFSV": "FSV Capital's track record of backing deep technical founders in regulated markets makes you our first-choice lead. Your portfolio company CipherStack gives you the exact enterprise security distribution relationships we need to close our first 10 enterprise accounts. No other seed fund in Europe has this combination of technical depth and enterprise security GTM.",
@@ -159,7 +282,12 @@
     "businessModel": "B2B2C",
     "stage": "Early Revenue",
     "coreProduct": "Blockchain-based agricultural credit scoring and DeFi lending platform",
-    "techStack": ["Blockchain", "AI/ML", "IoT", "Cloud"],
+    "techStack": [
+      "Blockchain",
+      "AI/ML",
+      "IoT",
+      "Cloud"
+    ],
     "usp": "First platform to combine on-chain agricultural data with satellite crop monitoring to create verifiable farmer credit histories accepted by RBI-regulated NBFCs",
     "hasPatents": false,
     "demoLink": "",
@@ -186,14 +314,26 @@
     "currency": "USD",
     "fundingStage": "Seed",
     "equityOffered": 12,
-    "useOfFunds": ["Product Development", "Hiring", "Expansion"],
+    "useOfFunds": [
+      "Product Development",
+      "Hiring",
+      "Expansion"
+    ],
     "useOfFundsDetail": "40% product (mobile-first farmer app + IoT), 35% geographic expansion to 5 new states, 25% team",
     "founderEducation": "Vikram: IIM Ahmedabad MBA. Sunita: IIT Delhi CS + Stanford Blockchain.",
     "founderExperience": "Vikram: 10 years agricultural finance at NABARD, structured $200M in farm credit programs. Sunita: 5 years Consensys, built DeFi protocols deployed on Polygon.",
     "teamSize": 14,
     "coreTeam": [
-      {"name": "Vikram Patel", "role": "CEO", "linkedin": "linkedin.com/in/vikrampatel"},
-      {"name": "Sunita Rao", "role": "CTO", "linkedin": "linkedin.com/in/sunitarao"}
+      {
+        "name": "Vikram Patel",
+        "role": "CEO",
+        "linkedin": "linkedin.com/in/vikrampatel"
+      },
+      {
+        "name": "Sunita Rao",
+        "role": "CTO",
+        "linkedin": "linkedin.com/in/sunitarao"
+      }
     ],
     "advisors": "Dr. M.S. Swaminathan Foundation (agri policy), ex-RBI Deputy Governor, Sandeep Nailwal (Polygon co-founder)",
     "whyFSV": "FSV Capital's emerging markets fintech investments and blockchain portfolio are a perfect match for AgriLedger. We need a fund that understands both regulatory complexity in India and blockchain infrastructure — FSV is uniquely positioned. Your partner network in Southeast Asia would also accelerate our Vietnam and Indonesia expansion planned for 2027.",
